@@ -22,7 +22,7 @@ Julio Casal
 
 Clone the repo from github
 ```bash
-git clone https://github.com/ediaze/net-catalog-01.git
+git clone https://github.com/myuser/net-catalog-01.git
 git config --local user.name "myuser"
 git config --local user.password "mypwd"
 ```
@@ -130,7 +130,7 @@ docker push myuser/catalog:v1
 
 Remove an image
 ```bash
-docker rmi ediaze/catalog:v1
+docker rmi myuser/catalog:v1
 docker rmi catalog:v1
 ```
 
@@ -141,7 +141,7 @@ docker logout
 
 download and run the shared image
 ```bash
-docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=Pass#word1 --network=net5tutorial ediaze/catalog:v1
+docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=Pass#word1 --network=net5tutorial myuser/catalog:v1
 ```
 
 ## Kubernetes commands

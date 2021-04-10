@@ -146,7 +146,64 @@ docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:
 
 ## Kubernetes commands
 
-Get the kbs cluster
+Get kubernetes cluster
 ```bash
 kubectl config current-context
+```
+
+View the kube config file
+```bash
+kubectl config view
+kubectl version
+kubectl config get-contexts
+```
+
+Set de context
+```bash
+kubectl config set current-context docker-desktop
+```
+
+If **docker-desktop** does not exists for kubernates you can create
+```bash
+docker context create k8s-test \
+  --default-stack-orchestrator=kubernetes \
+  --kubernetes config-file=/home/ubuntu/.kube/config \
+  --docker host=unix:///var/run/docker.sock
+  ```
+
+To create a new docket context
+```bash
+docker context create docker-test \
+  --default-stack-orchestrator=swarm \
+  --docker host=unix:///var/run/docker.sock
+```
+
+To use the context for k8s run
+```bash
+docker context ls
+docker context use k8s-test
+```
+
+To create a secret
+```bash
+kubectl create secret generic catalog-secrets --from-literal=mongodb-password='Pass#word1'
+```
+
+To deploy to k8s the application
+```bash
+kubectl apply -f catalog.yaml
+kubectl get deployments
+kubectl get pods
+```
+
+To see the logs from a pod
+```bash
+kubectl logs catalog-deployment-5d4b7565fc-rhzzc
+```
+
+To deploy to k8s mongodb database
+```bash
+kubectl apply -f mongodb.yaml
+kubectl get statefulsets
+kubectl get pods
 ```

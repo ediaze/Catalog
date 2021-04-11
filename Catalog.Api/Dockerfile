@@ -4,12 +4,12 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Catalog.csproj", "./"]
-RUN dotnet restore "Catalog.csproj"
+COPY ["Catalog.Api.csproj", "./"]
+RUN dotnet restore "Catalog.Api.csproj"
 COPY . .
-RUN dotnet publish "Catalog.csproj" -c Release -o /app/publish
+RUN dotnet publish "Catalog.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Catalog.dll"]
+ENTRYPOINT ["dotnet", "Catalog.Api.dll"]

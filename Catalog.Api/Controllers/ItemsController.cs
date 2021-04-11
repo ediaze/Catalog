@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Catalog.Dtos;
-using Catalog.Entities;
-using Catalog.Repositories;
+using Catalog.Api.Dtos;
+using Catalog.Api.Entities;
+using Catalog.Api.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Catalog.Controllers
+namespace Catalog.Api.Controllers
 {
     // https://localhost:5001/swagger/index.html
     [ApiController]
@@ -26,10 +26,16 @@ namespace Catalog.Controllers
 
         // GET /items
         [HttpGet]
-        public async Task<IEnumerable<ItemDto>> GetItemsAsync()
+        public async Task<IEnumerable<ItemDto>> GetItemsAsync(string nameToMatch = null)
         {
             var items = (await _repository.GetItemsAsync())
                         .Select(item => item.AsDto());
+
+            if (!string.IsNullOrWhiteSpace(nameToMatch))
+            {
+                items = items.Where(item => item.Name.Contains(nameToMatch, StringComparison.OrdinalIgnoreCase));
+            }
+
             _logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()} items");
             return items;
         }

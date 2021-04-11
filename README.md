@@ -57,6 +57,27 @@ Add Health checks
 dotnet add package AspNetCore.HealthChecks.MongoDb
 ```
 
+Add a test project
+```bash
+dotnet new xunit -n Catalog.UnitTests
+dotnet test
+```
+
+Add reference to Api project
+```
+Catalog.UnitTests> dotnet add reference ..\Catalog.Api\Catalog.Api.csproj
+Catalog.UnitTests> dotnet add package Microsoft.Extensions.Logging.Abstractions
+Catalog.UnitTests> dotnet add package Moq
+Catalog.UnitTests> dotnet add package FluentAssertions
+```
+
+## VS code commands
+
++ Ctl + .: Add using reference
++ Ctl + shift + B: Build project
++ Ctl + shift + P: Run a commmand on the project
+
+
 ## docker commands
 
 Add an Mongo DB image and set a volume to keep the data after the image is down/stop

@@ -144,6 +144,14 @@ download and run the shared image
 docker run -it --rm -p 8080:80 -e MongoDbSettings:Host=mongo -e MongoDbSettings:Password=Pass#word1 --network=net5tutorial myuser/catalog:v1
 ```
 
+Update docker image at docket hub 
+```bash
+docker build -t myuser/catalog:v2 .
+docker login
+docker push myuser/catalog:v2
+docker logout
+```
+
 ## Kubernetes commands
 
 Get kubernetes cluster
@@ -198,7 +206,7 @@ kubectl get pods
 
 To see the logs from a pod
 ```bash
-kubectl logs catalog-deployment-5d4b7565fc-rhzzc
+kubectl logs catalog-deployment-5d4b7565fc-rhzzc -f
 ```
 
 To deploy to k8s mongodb database
@@ -206,4 +214,19 @@ To deploy to k8s mongodb database
 kubectl apply -f mongodb.yaml
 kubectl get statefulsets
 kubectl get pods
+```
+
+To monitor the pods
+```bash
+kubectl get pods -w
+```
+
+Kill a pod to restart with a new pod
+```bash
+kubectl delete pod catalog-deployment-b7744cd79-vhhz6
+```
+
+To scale deployments
+```bash
+kubectl scale deployments/catalog-deployment --replicas=3
 ```

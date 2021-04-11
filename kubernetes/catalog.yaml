@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: catalog
-          image: ediaze/catalog:v1
+          image: ediaze/catalog:v2
           resources:
             limits:
               memory: "128Mi"
@@ -21,9 +21,9 @@ spec:
           ports:
             - containerPort: 80
           env:
-            - name: MondoDbSettings__Host
+            - name: MongoDbSettings__Host
               value: mongodb-service
-            - name: MondoDbSettings__Password
+            - name: MongoDbSettings__Password
               valueFrom:
                 secretKeyRef:
                   name: catalog-secrets
@@ -47,5 +47,5 @@ spec:
   selector:
     app: catalog
   ports:
-    - port: 80
+    - port: 8080
       targetPort: 80
